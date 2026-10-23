@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Epidemiologik praktikum</title>
+<script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=H_-a7I-iObOfp6TKWybZSjjSe6JfMjkiXVW5JYFuU-QggV_1Bknr1QUqK2gUzLC9BEOnpCtdoRrn6y41MYnKUuiY5YCh_Gb8cUAlv6OIOHlY3g1Yal8TI3p5yRfZrLeRqgd8IJix6wyBUyxtNuYRDT8l93_94dcwjyWyUAUqT41s1qnnKajJHLRVbYTDHv5IXiXK9EJ0HCk7szDSwHSGSL0Y7-KpDiBkMiVARimBc6DtYQ76Dc0qV8VjEKjuYJVRkiNQXhx7LJpbig6_4ft_LVAo9glAlymlGzZvU85XIpn66JVRPDN7_Em15gFbxVr6g9n7Sc4SEloLN_cJb4IDTtHt9wGNY_HhJVGOF0JpjPsPFgh2l8tAky2OAhHncDGL4yfVjXmYwwEppJR33vHwrnscPlh-Js-Qzc27smKKimtyziQ7dPpw8Rlrmajbgzs6aJfh_dHMVqMvJV3xzTSw8O_uYn2B8RBBODljKR9gOD08f1momgcGR2qXH3yJEajIiGAPKeP5rVchX7TpH0ieAUaa0DtPV2IZDsPrNxrP8nE6HYpgaLffcJgrXJaIzcZ7fe9RHMpIfg35Dz5zXQxoVYdySScwRo4SUMjpCobWFsPm7gHz_zmsD4LNq64708Y0dDBd9qKsI1qjDCWwEh4broLwwHgk-Y4UDURP46yBNQtVMy7ydD0kTntyrOhYiZnN" charset="UTF-8"></script><style>
+  :root{
+    --bg:#0f172a; --card:#1e293b; --card2:#243349; --text:#e2e8f0; --muted:#94a3b8;
+    --accent:#38bdf8; --good:#34d399; --bad:#f87171; --warn:#fbbf24; --line:#334155;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; background:var(--bg); color:var(--text); min-height:100vh;}
+  header{padding:20px 24px 8px;}
+  header h1{font-size:1.5rem; color:var(--accent);}
+  header p{color:var(--muted); font-size:.9rem; margin-top:4px;}
+  nav{display:flex; gap:8px; padding:14px 24px; flex-wrap:wrap;}
+  nav button{background:var(--card); color:var(--muted); border:1px solid var(--line); padding:9px 18px; border-radius:10px; cursor:pointer; font-size:.95rem; transition:.15s;}
+  nav button:hover{color:var(--text);}
+  nav button.active{background:var(--accent); color:#082f49; border-color:var(--accent); font-weight:600;}
+  main{max-width:900px; margin:0 auto; padding:10px 24px 60px;}
+  .screen{display:none; animation:fade .2s;}
+  .screen.active{display:block;}
+  @keyframes fade{from{opacity:0; transform:translateY(4px);} to{opacity:1;}}
+  .card{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:20px; margin-bottom:16px;}
+  h2{font-size:1.2rem; margin-bottom:10px;}
+  h3{font-size:1rem; margin:14px 0 8px; color:var(--accent);}
+  p,li{font-size:.95rem; line-height:1.55;}
+  ul,ol{padding-left:22px;} li{margin:4px 0;}
+  .muted{color:var(--muted);}
+  .btn{background:var(--accent); color:#082f49; border:none; padding:9px 16px; border-radius:9px; cursor:pointer; font-size:.9rem; font-weight:600; margin:4px 6px 4px 0;}
+  .btn.ghost{background:var(--card2); color:var(--text); border:1px solid var(--line); font-weight:500;}
+  .btn.good{background:var(--good); color:#052e1f;}
+  .btn:disabled{opacity:.45; cursor:not-allowed;}
+  input[type=text],input[type=number]{background:var(--bg); border:1px solid var(--line); color:var(--text); padding:9px 12px; border-radius:9px; font-size:.95rem; width:220px;}
+  .ok{color:var(--good); font-weight:600;}
+  .no{color:var(--bad); font-weight:600;}
+  .tag{display:inline-block; background:var(--card2); border:1px solid var(--line); color:var(--muted); border-radius:20px; padding:2px 12px; font-size:.78rem; margin-left:8px;}
+  .tag.done{color:var(--good); border-color:var(--good);}
+  .sol{background:var(--bg); border-left:3px solid var(--accent); border-radius:0 8px 8px 0; padding:12px 14px; margin-top:12px; display:none; font-size:.92rem; line-height:1.6;}
+  .hint{background:#3b2f0b; border-left:3px solid var(--warn); border-radius:0 8px 8px 0; padding:12px 14px; margin-top:12px; display:none; font-size:.92rem;}
+  table{border-collapse:collapse; margin:10px 0; font-size:.9rem; width:100%; max-width:600px;}
+  th,td{border:1px solid var(--line); padding:7px 12px; text-align:center;}
+  th{background:var(--card2);}
+  .chat{height:380px; overflow-y:auto; background:var(--bg); border:1px solid var(--line); border-radius:12px; padding:14px; margin-bottom:12px;}
+  .msg{max-width:78%; padding:10px 14px; border-radius:14px; margin-bottom:10px; font-size:.92rem; line-height:1.5; white-space:pre-wrap;}
+  .msg.bot{background:var(--card2); border:1px solid var(--line); border-radius:14px 14px 14px 4px;}
+  .msg.user{background:#075985; margin-left:auto; border-radius:14px 14px 4px 14px;}
+  .row{display:flex; gap:8px; flex-wrap:wrap; align-items:center;}
+  .scorebar{display:flex; gap:10px; flex-wrap:wrap; margin:6px 0 14px;}
+  .scorebar span{background:var(--card2); border:1px solid var(--line); padding:5px 12px; border-radius:20px; font-size:.85rem; color:var(--muted);}
+  .scorebar span.got{color:var(--good); border-color:var(--good);}
+  .step{display:flex; gap:14px; align-items:flex-start; margin:12px 0;}
+  .stepnum{flex:0 0 34px; height:34px; border-radius:50%; background:var(--accent); color:#082f49; font-weight:700; display:flex; align-items:center; justify-content:center;}
+  .gloss td{text-align:left;}
+  .gloss td:first-child{font-weight:600; color:var(--accent); white-space:nowrap;}
+  .gloss td:nth-child(2){color:var(--muted); white-space:nowrap;}
+  .pill{display:inline-block; background:var(--card2); border:1px solid var(--line); border-radius:20px; padding:3px 12px; font-size:.8rem; color:var(--muted); margin:2px 4px 2px 0;}
+</style>
+</head>
+<body>
+<header>
+  <h1>🦠 Epidemiologik praktikum</h1>
+  <p>Boshlash · Vazifalar · Kasallik tarqalishi · Lug'at · AI-yordamchi</p>
+</header>
+
+<nav>
+  <button data-tab="start" class="active">Boshlash</button>
+  <button data-tab="tasks">Vazifalar</button>
+  <button data-tab="outbreak">Kasallik tarqalishi</button>
+  <button data-tab="glossary">Lug'at</button>
+  <button data-tab="mentor">AI-yordamchi</button>
+</nav>
+
+<main>
+
+<!-- ============ BOSHLASH ============ -->
+<section id="start" class="screen active">
+  <div class="card">
+    <h2>Xush kelibsiz! 👋</h2>
+    <p>Bu — interaktiv epidemiologiya mashg'uloti. Siz hisob-kitoblar qilasiz, portlashni tergov qilasiz va AI-yordamchidan bilim olasiz. Har bir bo'lim mustaqil ishlaydi — istalganidan boshlashingiz mumkin.</p>
+  </div>
+  <div class="card">
+    <h2>Mashg'ulot qanday o'tadi</h2>
+    <div class="step"><div class="stepnum">1</div><div><b>Ismingizni kiriting.</b> Natijalaringiz shu qurilmada saqlanadi va yakunda hisobot fayli yuklab olinadi.</div></div>
+    <div class="step"><div class="stepnum">2</div><div><b>Vazifalar (10–15 daqiqa, ishonch uchun).</b> Har safar yangi raqamlar tushadi — qo'shnidan ko'chirib bo'lmaydi. 6 ta mavzu. Ball faqat birinchi urinishda to'g'ri javob uchun beriladi.</div></div>
+    <div class="step"><div class="stepnum">3</div><div><b>Kasallik tarqalishi (asosiy topshiriq).</b> Dastur sizga infeksiya portlashini o'ynaydi, siz esa epidemiolog bo'lasiz: savollar berasiz, ma'lumot so'raysiz, manba haqida gipoteza ilgari surasiz. Ma'lumot faqat so'ralgandagina beriladi. Oxirida qaysi tergov bosqichlarini o'tkazib yuborganingiz ko'rsatiladi.</div></div>
+    <div class="step"><div class="stepnum">4</div><div><b>Lug'at.</b> Ishlatiladigan atamalar bo'yicha qo'llanma — istalgan vaqtda ochib ko'ring.</div></div>
+    <div class="step"><div class="stepnum">5</div><div><b>AI-yordamchi.</b> Savollaringizga tayyor javob emas, balki yo'naltiruvchi savollar orqali javob beradi. Mustaqil tayyorgarlik uchun.</div></div>
+  </div>
+  <div class="card">
+    <h2>Ma'lumotlaringiz</h2>
+    <div class="row" style="margin-bottom:10px;">
+      <input type="text" id="stName" placeholder="Familiya va ismingiz" style="flex:1; min-width:240px;">
+      <button class="btn" onclick="saveName()">Saqlash</button>
+    </div>
+    <p class="muted" id="nameInfo" style="margin-bottom:10px;"></p>
+    <div class="row">
+      <button class="btn ghost" onclick="downloadReport()">📄 Hisobotni yuklab olish (.txt)</button>
+      <button class="btn ghost" onclick="resetAll()">🗑 Natijalarni tozalash</button>
+    </div>
+    <p class="muted" style="margin-top:10px;">Hisobotda ismingiz, har bir vazifa bo'yicha urinishlar soni, birinchi urinishda to'g'ri javoblar soni va vaqt bo'ladi. Yuklab olingan faylni o'qituvchiga yuboring (email, Telegram, LMS).</p>
+  </div>
+  <button class="btn" onclick="showTab('tasks')">Vazifalardan boshlash →</button>
+</section>
+
+<!-- ============ VAZIFALAR ============ -->
+<section id="tasks" class="screen">
+  <div class="card">
+    <h2>Vazifalar <span class="muted" style="font-size:.85rem">ball faqat birinchi urinish uchun</span></h2>
+    <div class="scorebar" id="scorebar"></div>
+    <div id="taskArea"></div>
+  </div>
+</section>
+
+<!-- ============ PORTLASH ============ -->
+<section id="outbreak" class="screen">
+  <div class="card">
+    <h2>Kasallik tarqalishini tergov qilish</h2>
+    <div id="obIntro"></div>
+    <div class="chat" id="obChat"></div>
+    <div class="row" id="obQuick"></div>
+    <div class="row" style="margin-top:10px;">
+      <input type="text" id="obInput" placeholder="Savol yoki ma'lumot so'rovi yozing..." style="flex:1; min-width:220px;">
+      <button class="btn" onclick="obSend()">Yuborish</button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LUG'AT ============ -->
+<section id="glossary" class="screen">
+  <div class="card">
+    <h2>Atamalar lug'ati</h2>
+    <p class="muted" style="margin-bottom:10px;">Ishlatiladigan asosiy atamalar (o'zbekcha / ruscha / qisqacha ta'rif).</p>
+    <table class="gloss">
+      <tr><th>Atama (UZ)</th><th>Ruscha</th><th>Ma'no</th></tr>
+      <tr><td>Kasallanish (insidensiya)</td><td>заболеваемость</td><td>Muayyan davrda yangi paydo bo'lgan kasallik holatlari soni, odatda 1000 yoki 100 000 aholi uchun.</td></tr>
+      <tr><td>Tarqalganlik (prevalensiya)</td><td>распространённость</td><td>Ma'lum paytda mavjud bo'lgan barcha kasallik holatlari ulushi (foizda).</td></tr>
+      <tr><td>Nisby xavf (RR)</td><td>относительный риск</td><td>Ko'rilgan guruhdagi xavf nazorat guruhidagi xavfga nisbati. RR = 1 — aloqa yo'q; RR &gt; 1 — xavf oshadi.</td></tr>
+      <tr><td>Imkoniyatlar nisbati (OR)</td><td>отношение шансов</td><td>"Holat-nazorat" tadqiqotida shanslar nisbati: OR = (a·d)/(b·c) 2×2 jadvalda.</td></tr>
+      <tr><td>2×2 jadval</td><td>таблица 2×2</td><td>Ko'rilgan va kasallanish belgilari bo'yicha to'rt katakli jadval: a, b, c, d.</td></tr>
+      <tr><td>Sezgirlik</td><td>чувствительность</td><td>Kasalarni to'g'ri aniqlash ulushi: TP/(TP+FN)·100%. Yuqori sezgirlik — kasalni o'tkazib yubormaydi.</td></tr>
+      <tr><td>Spesifiklik</td><td>специфичность</td><td>Sog'larni to'g'ri aniqlash ulushi: TN/(TN+FP)·100%. Yuqori spesifiklik — yolg'on signal kam.</td></tr>
+      <tr><td>Kasallik tarqalishi (portlash)</td><td>вспышка</td><td>Kutilgan darajadan ortiq kasallik holatlarining to'planishi.</td></tr>
+      <tr><td>Epidemik egri chiziq</td><td>эпидемическая кривая</td><td>Kasallanish boshlanish sanasi bo'yicha holatlar taqsimoti. Egri chiziq shakli portlash turini ko'rsatadi.</td></tr>
+      <tr><td>Ataka ulushi</td><td>атака (коэффициент заболеваемости)</td><td>Xavf ostidagi odamlar orasida kasallanganlar ulushi: kasallangan / xavf ostidagi · 100%.</td></tr>
+      <tr><td>Inkubatsiya davri</td><td>инкубационный период</td><td>Yuqishdan birinchi belgilargacha bo'lgan vaqt.</td></tr>
+      <tr><td>Kuzatuv tadqiqoti</td><td>когортное исследование</td><td>Oddiy guruhlar vaqt o'tishi bilan kuzatiladi, xavf (risk) hisoblanadi — RR uchun.</td></tr>
+      <tr><td>"Holat-nazorat" tadqiqoti</td><td>исследование «случай–контроль»</td><td>Kasallar va sog'llar orqaga qarab solishtiriladi; hisoblanadi OR.</td></tr>
+      <tr><td>Ekspozitsiya</td><td>экспозиция</td><td>Kasallanish xavfini oshiruvchi ta'sir (mahsulot, omil).</td></tr>
+      <tr><td>95% ishonch oralig'i (95% DI)</td><td>95% ДИ</td><td>Haqiqiy qiymat 95% ehtimollik bilan tushadigan oraliq. 1 dan keng oraliq — aloqa ishonchsiz.</td></tr>
+      <tr><td>Yo'ldosh (kontrol) guruh</td><td>контрольная группа</td><td>Taqqoslash uchun ko'rilmagan guruh.</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ============ AI-YORDAMCHI ============ -->
+<section id="mentor" class="screen">
+  <div class="card">
+    <h2>AI-yordamchi</h2>
+    <p class="muted" style="margin-bottom:10px;">Mavzularni tayyor javob bilan emas, balki yo'naltiruvchi savollar orqali tushuntiradi.</p>
+    <div class="chat" id="mChat"></div>
+    <div class="row" style="margin-bottom:8px;" id="mQuick"></div>
+    <div class="row">
+      <input type="text" id="mInput" placeholder="Masalan: nisby xavf nima?" style="flex:1; min-width:220px;">
+      <button class="btn" onclick="mSend()">So'rash</button>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script>
+/* ================= NAVIGATSIYA ================= */
+function showTab(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active', b.dataset.tab===id));
+  if(id==='tasks') renderTasks();
+}
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>showTab(b.dataset.tab));
+
+/* ================= SAQLASH (localStorage) ================= */
+const STORE_KEY='epi_praktikum_uz';
+function loadState(){ try{ return JSON.parse(localStorage.getItem(STORE_KEY))||{}; }catch(e){ return {}; } }
+function saveState(st){ localStorage.setItem(STORE_KEY, JSON.stringify(st)); }
+let GLOBAL=loadState();
+if(!GLOBAL.tasks) GLOBAL.tasks={};
+if(!GLOBAL.name) GLOBAL.name='';
+saveState(GLOBAL);
+
+function saveName(){
+  const v=document.getElementById('stName').value.trim();
+  if(!v){ document.getElementById('nameInfo').textContent='Iltimos, ismingizni yozing.'; return; }
+  GLOBAL.name=v; saveState(GLOBAL); renderNameInfo();
+}
+function renderNameInfo(){
+  const el=document.getElementById('nameInfo');
+  el.textContent = GLOBAL.name ? `✔ Saqlangan: ${GLOBAL.name}. Natijalar shu qurilmada saqlanadi — "Hisobotni yuklab olish" orqali faylni o'qituvchiga yuboring.` : 'Ism hali kiritilmagan.';
+  document.getElementById('stName').value=GLOBAL.name||'';
+}
+function resetAll(){
+  if(!confirm('Barcha natijalar o\'chiriladi. Davom etasizmi?')) return;
+  localStorage.removeItem(STORE_KEY); GLOBAL={tasks:{},name:''}; taskState={};
+  document.getElementById('obChat').innerHTML=''; OB.started=false;
+  document.getElementById('obIntro').innerHTML=`<p class="muted" style="margin-bottom:12px;">Ssenariy interaktiv: bot faqat so'ralgan ma'lumotni beradi. Juftlikda o'tish tavsiya etiladi.</p><button class="btn" onclick="obStart()">Tergovni boshlash</button>`;
+  document.getElementById('obQuick').innerHTML='';
+  renderNameInfo(); renderTasks();
+}
+function downloadReport(){
+  const t=new Date();
+  const ts=`${t.getFullYear()}-${String(t.getMonth()+1).padStart(2,'0')}-${String(t.getDate()).padStart(2,'0')} ${String(t.getHours()).padStart(2,'0')}:${String(t.getMinutes()).padStart(2,'0')}`;
+  let lines=[`EPIDEMIOLOGIK PRAKTIKUM — HISOBOT`,`Sana: ${ts}`,`Talaba: ${GLOBAL.name||'(kiritilmagan)'}`,``];
+  let score=0;
+  TASK_DEFS.forEach(d=>{
+    const s=GLOBAL.tasks[d.key];
+    if(!s||s.attempts===0){ lines.push(`${d.title}: kiritilmagan`); return; }
+    if(s.attempts===1&&s.solvedFirst) score++;
+    lines.push(`${d.title}: ${s.attempts} urinish, ${s.solved?'to'g'ri':'xato'}${s.solvedFirst?' (1-urinishdan)':''}`);
+  });
+  lines.push(``, `Ball (1-urinishdan to'g'ri): ${score} / ${TASK_DEFS.length}`);
+  const obSteps=Object.keys(OB.steps).length;
+  lines.push(`Kasallik tarqalishi: ${obSteps}/7 tergov bosqichi so'ralgan`);
+  const blob=new Blob([lines.join('\n')],{type:'text/plain;charset=utf-8'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download=`hisobot_${(GLOBAL.name||'talaba').replace(/\s+/g,'_')}.txt`;
+  a.click(); URL.revokeObjectURL(a.href);
+}
+
+/* ================= VAZIFALAR ================= */
+const ri=(a,b)=>Math.floor(Math.random()*(b-a+1))+a;
+const fmt=n=>Math.round(n*100)/100;
+
+const TASK_DEFS=[
+ {key:'inc', title:'Kasallanish (insidensiya)',
+  gen(){
+    const pop=ri(800,5000), cases=ri(15,Math.floor(pop*0.08)), months=ri(2,12);
+    return {text:`Aholi punktida ${pop} kishi yashaydi, ${months} oy davomida X kasalligining ${cases} holati qayd etilgan. 1000 aholi uchun kasallanish ko'rsatkichini hisoblang.`,
+      answer:fmt(cases/pop*1000),
+      solve:`Kasallanish = (kasallanganlar / aholi) × 1000 = (${cases} / ${pop}) × 1000 = <b>${fmt(cases/pop*1000)} dan 1000</b>.`,
+      hint:`Formula: (kasallanganlar / aholi) × 1000. 1000 ga ko'paytirishni unutdingizmi? Surat va maxrajni almashtirmadingizmi?`};
+  }},
+ {key:'prev', title:'Tarqalganlik (prevalensiya)',
+  gen(){
+    const pop=ri(1000,8000), cases=ri(30,Math.floor(pop*0.3));
+    return {text:`${pop} kishini tekshirganda Y kasalligining ${cases} holati aniqlangan (ko'rik paytida). Tarqalganlik ko'rsatkichini hisoblang (%).`,
+      answer:fmt(cases/pop*100),
+      solve:`Tarqalganlik = (aniqlangan holatlar / tekshirilganlar) × 100 = (${cases} / ${pop}) × 100 = <b>${fmt(cases/pop*100)}%</b>.`,
+      hint:`Formula: (holatlar / tekshirilganlar) × 100. Maxraj — butun aholi emas, tekshirilgan kishilar.`};
+  }},
+ {key:'rr', title:'Nisby xavf (RR), kuzatuv tadqiqoti',
+  gen(){
+    const a=ri(20,80), b=ri(80,300), c=ri(5,25), d=ri(200,500);
+    const re=a/b, ru=c/d;
+    return {text:`Kuzatuv tadqiqoti: chekuvchilardan ${a+b} kishidan ${a} kasallangan, chekmaydiganlardan ${c+d} kishidan ${c} kasallangan. Nisby xavfni (RR) hisoblang.`,
+      answer:fmt(re/ru),
+      solve:`Chekuvchilar xavfi = ${a}/${a+b} = ${fmt(re*100)}%.<br>Chekmaydiganlar xavfi = ${c}/${c+d} = ${fmt(ru*100)}%.<br>RR = ${fmt(re*100)} / ${fmt(ru*100)} = <b>${fmt(re/ru)}</b>.`,
+      hint:`Formula: RR = ko'rilgan guruh xavfi / ko'rilmagan guruh xavfi. Avval har bir guruh ulushini alohida hisoblang.`};
+  }},
+ {key:'or', title:'Imkoniyatlar nisbati (OR), "holat-nazorat"',
+  gen(){
+    const a=ri(30,90), b=ri(80,250), c=ri(20,70), d=ri(120,350);
+    return {text:`"Holat-nazorat" tadqiqoti: kasallar orasida ${a} kishi ta'sirga duchor bo'lgan, ${c} kishi — yo'q; sog'llar (nazorat) orasida ${b} kishi ta'sirga duchor bo'lgan, ${d} kishi — yo'q. OR ni hisoblang.`,
+      answer:fmt((a*d)/(b*c)),
+      solve:`OR = (a·d) / (b·c) = (${a}·${d}) / (${b}·${c}) = ${a*d} / ${b*c} = <b>${fmt((a*d)/(b*c))}</b>.`,
+      hint:`2×2 jadval: a=${a}, b=${b}, c=${c}, d=${d}. Formula OR = (a·d)/(b·c). Kasallar va nazorat guruhini almashtirmadingizmi?`};
+  }},
+ {key:'sens', title:'Test sezgirligi',
+  gen(){
+    const tp=ri(40,90), fn=ri(5,30);
+    return {text:`Test tasdiqlangan tashxisli ${tp+fn} bemor tekshirildi: ${tp} tasida ijobiy, ${fn} tasida salbiy natija. Sezgirlikni hisoblang (%).`,
+      answer:fmt(tp/(tp+fn)*100),
+      solve:`Sezgirlik = TP / (TP + FN) × 100 = ${tp} / ${tp+fn} × 100 = <b>${fmt(tp/(tp+fn)*100)}%</b>.`,
+      hint:`Sezgirlik faqat bemorlar orasida hisoblanadi: TP / (TP+FN). FN — test o'tkazib yuborgan bemorlar.`};
+  }},
+ {key:'spec', title:'Test spesifikligi',
+  gen(){
+    const tn=ri(80,250), fp=ri(5,40);
+    return {text:`Test sog'lom ${tn+fp} kishida tekshirildi: ${tn} tasida salbiy, ${fp} tasida yolg'on-ijobiy natija. Spesifiklikni hisoblang (%).`,
+      answer:fmt(tn/(tn+fp)*100),
+      solve:`Spesifiklik = TN / (TN + FP) × 100 = ${tn} / ${tn+fp} × 100 = <b>${fmt(tn/(tn+fp)*100)}%</b>.`,
+      hint:`Spesifiklik faqat sog'llar orasida hisoblanadi: TN / (TN+FP). FP — xato ravishda bemor deb topilgan sog'llar.`};
+  }},
+];
+let taskState={};
+
+function renderTasks(){
+  const area=document.getElementById('taskArea'), bar=document.getElementById('scorebar');
+  area.innerHTML=''; bar.innerHTML=''; let score=0;
+  TASK_DEFS.forEach(def=>{
+    if(!taskState[def.key]) taskState[def.key]={data:def.gen(), attempts:0, solved:false};
+    const st=taskState[def.key];
+    const card=document.createElement('div'); card.className='card';
+    card.innerHTML=`
+      <h3>${def.title} <span class="tag ${st.attempts===1&&st.solved?'done':''}" id="tag-${def.key}">${st.attempts===1&&st.solved?'✔ 1-urinishdan':(st.solved?'bajarildi':'bajarilmadi')}</span></h3>
+      <p>${st.data.text}</p>
+      <div class="row" style="margin-top:10px;">
+        <input type="number" step="any" id="in-${def.key}" placeholder="Javobingiz" ${st.solved?'disabled':''}>
+        <button class="btn good" onclick="checkTask('${def.key}')" ${st.solved?'disabled':''}>Tekshirish</button>
+        <button class="btn ghost" onclick="showHint('${def.key}')">AI maslahati</button>
+        <button class="btn ghost" onclick="showSolution('${def.key}')">Yechimni ko'rsatish</button>
+      </div>
+      <div id="fb-${def.key}" style="margin-top:8px;"></div>
+      <div class="hint" id="hint-${def.key}">🤖 <b>AI maslahati:</b> ${st.data.hint}</div>
+      <div class="sol" id="sol-${def.key}">${st.data.solve}</div>`;
+    area.appendChild(card);
+    if(st.attempts===1&&st.solved) score++;
+    const sp=document.createElement('span'); sp.textContent=def.title.split(' (')[0];
+    if(st.attempts===1&&st.solved) sp.classList.add('got');
+    bar.appendChild(sp);
+  });
+  const total=document.createElement('span'); total.textContent=`Ball: ${score} / ${TASK_DEFS.length}`;
+  if(score===TASK_DEFS.length) total.classList.add('got');
+  bar.appendChild(total);
+}
+function checkTask(key){
+  const st=taskState[key]; const inp=document.getElementById('in-'+key);
+  const val=parseFloat(inp.value); const fb=document.getElementById('fb-'+key);
+  if(isNaN(val)){ fb.innerHTML='<span class="no">Son kiriting.</span>'; return; }
+  const ok=Math.abs(val-st.data.answer)<=Math.max(0.05, Math.abs(st.data.answer)*0.01);
+  st.attempts++;
+  GLOBAL.tasks[key]={attempts:st.attempts, solved:ok, solvedFirst:ok&&st.attempts===1};
+  saveState(GLOBAL);
+  if(ok){ st.solved=true; renderTasks(); }
+  else fb.innerHTML='<span class="no">✘ Xato. Yana urinib ko\'ring yoki AI maslahatini oling.</span>';
+}
+function showHint(key){ const el=document.getElementById('hint-'+key); el.style.display=el.style.display==='block'?'none':'block'; }
+function showSolution(key){
+  const st=taskState[key]; document.getElementById('sol-'+key).style.display='block';
+  if(!st.solved){ st.solved=true; st.attempts=Math.max(st.attempts,1);
+    GLOBAL.tasks[key]={attempts:st.attempts, solved:false, solvedFirst:false}; saveState(GLOBAL);
+    renderTasks(); document.getElementById('sol-'+key).style.display='block'; }
+}
+
+/* ================= PORTLASH ================= */
+const OB={started:false, steps:{},
+  data:{
+    diagnosis:'Kasallarning aksariyati — "Lastochka" kafesidagi bayram tushligining (12-may) mehmonlari. Klinika: diareya (92%), isitma (81%), qorinda og\'riq (69%), qusish (31%). Kasallik 2–6 kun davom etadi. Taxminan — oshqozon-ichak infeksiyasi, ehtimol salmonellyoz.',
+    curve:'Epidemik egri chiziq (kasallanish boshlanish sanasi):\n11-may — 0\n12-may — 1\n13-may — 9\n14-may — 11\n15-may — 4\n16-may — 1\nJami 26 kishi kasallangan. Egri chiziq birmodali, cho\'qqi tushlikdan ~24–36 soat keyin — umumiy manba (nuqtaviy portlash), inkubatsiya ~12–36 soat.',
+    menu:'12-may tushlik menyusi: mayizli "Olivye" salati; tovuq sho\'rva chuchvara bilan; qovurilgan tovuq guruch bilan; "Kartoshka" pirojnoyi; choy, qahva; mineral suv (zavod qadoqi, hammaga bir xil).',
+    water:'Mineral suv — zavod qadoqida. Ichkanlardan 13/20 (65%), ichmaganlardan 13/28 (46%) kasallangan. Farq ahamiyatsiz: RR = 1,41. Suv manba ekanligi shubhali.',
+    lab:'Laboratoriya natijalari:\n• 9 bemor dali: S. Enteritidis, serotip 4 — 11 tadan 9 tasida.\n• Qovurilgan tovuq qoldig\'ida: S. Enteritidis o\'sishi.\n• "Olivye" salati qoldig\'ida: o\'sish aniqlanmadi.\n• Yetkazib beruvchidan olingan tovuqlar: S. Enteritidis, xuddi shu serotip.',
+    cases:'26 kishi 48 mehmondan kasallangan (ataka 54%). Kafe xodimlarida kasallanmagan. O\'rtacha yosh 34 (18–61), erkaklar va ayollar taxminan teng.',
+    control:'Zudlikni talab qiluvchi chora-tadbirlar: bemorlarni aniqlash va izolyatsiya (3 marta salbiy tahlilgacha), kafeda joriy va yakuniy dezinfeksiya, taom va tovuq partiyasi qoldiqlarini olib tashlash va yo\'q qilish, tovuq tayyorlash texnologiyasi buzilishlarini o\'rganish.'
+  },
+  tables:{
+    chicken:'<b>2×2 jadval: qovurilgan tovuq</b>\n<table><tr><th></th><th>Kasallangan</th><th>Sog\'</th><th>Ataka, %</th></tr><tr><td>Tovuq yegan</td><td>22</td><td>6</td><td>78,6</td></tr><tr><td>Yemagan</td><td>4</td><td>16</td><td>20,0</td></tr></table>RR = 3,93 (95% DI 1,65–9,35) — kuchli aloqa.',
+    salad:'<b>2×2 jadval: "Olivye" salati</b>\n<table><tr><th></th><th>Kasallangan</th><th>Sog\'</th><th>Ataka, %</th></tr><tr><td>Salat yegan</td><td>14</td><td>10</td><td>58,3</td></tr><tr><td>Yemagan</td><td>12</td><td>12</td><td>50,0</td></tr></table>RR = 1,17 — aloqa kuchsiz, ahamiyatsiz.',
+    soup:'<b>2×2 jadval: tovuq sho\'rva</b>\n<table><tr><th></th><th>Kasallangan</th><th>Sog\'</th><th>Ataka, %</th></tr><tr><td>Sho\'rva ichkan</td><td>16</td><td>9</td><td>64,0</td></tr><tr><td>Ichmagan</td><td>10</td><td>13</td><td>43,5</td></tr></table>RR = 1,47 — o\'rtacha aloqa, tovuq bilan bog\'liq bo\'lishi mumkin.',
+    cake:'<b>2×2 jadval: "Kartoshka" pirojnoyi</b>\n<table><tr><th></th><th>Kasallangan</th><th>Sog\'</th><th>Ataka, %</th></tr><tr><td>Pirojnoyi yegan</td><td>10</td><td>12</td><td>45,5</td></tr><tr><td>Yemagan</td><td>16</td><td>10</td><td>61,5</td></tr></table>RR = 0,74 — teskari aloqa, pirojnoyi gumondagi obyekt emas.',
+    tea:'<b>2×2 jadval: choy/qahva</b>\n<table><tr><th></th><th>Kasallangan</th><th>Sog\'</th><th>Ataka, %</th></tr><tr><td>Ichkan</td><td>13</td><td>9</td><td>59,1</td></tr><tr><td>Ichmagan</td><td>13</td><td>17</td><td>43,3</td></tr></table>RR = 1,36 — kuchsiz aloqa.'
+  },
+  solution:'Epidemiologik tahlil qovurilgan tovuqni manba deb ko\'rsatadi: eng yuqori RR (3,93), tovuqdan kasallardagi bilan bir xil serotipdagi S. Enteritidis ajratilgan. Ehtimoliy mexanizm — tovuqning yetarli termik qayta ishlatilmagan yoki tayyorlangandan keyin ifloslanishi. Suv va ichimliklar istisno qilingan (kuchsiz RR), salat va pirojnoyi — ehtimoli past.',
+  checklist:[['diag','Tashxisni aniqlash / holatlarni tavsiflash'],['curve','Epidemik egri chiziq qurish'],['cases','Kasallanganlarni tavsiflash (ataka, kim kasallangan)'],['menu','Menyu / ekspozitsiyalar haqida ma\'lumot yig\'ish'],['table','2×2 jadvalli tahlil (ataka, RR/OR)'],['lab','Laboratoriya tasdiqlashi'],['control','Profilaktik chora-tadbirlar']]
+};
+function obBot(h){ const c=document.getElementById('obChat'); const d=document.createElement('div'); d.className='msg bot'; d.innerHTML=h; c.appendChild(d); c.scrollTop=c.scrollHeight; }
+function obUser(t){ const c=document.getElementById('obChat'); const d=document.createElement('div'); d.className='msg user'; d.textContent=t; c.appendChild(d); c.scrollTop=c.scrollHeight; }
+function obStart(){
+  if(OB.started) return; OB.started=true;
+  document.getElementById('obIntro').innerHTML='';
+  const q=['Tashxis va belgilar','Epidemik egri chiziq','Kim kasallangan?','Tushlik menyusi','2×2 — tovuq','2×2 — salat','2×2 — sho\'rva','2×2 — pirojnoyi','2×2 — choy/qahva','Suv haqida ma\'lumot','Laboratoriya tahlillari','Qanday chora-tadbirlar kerak?'];
+  document.getElementById('obQuick').innerHTML=q.map(s=>`<button class="btn ghost" onclick='obAsk(${JSON.stringify(s)})'>${s}</button>`).join('');
+  obBot('🚨 <b>Navbatchi epidemiolog, sizga xabar:</b>\n\n«Uch kunda infeksion kasalxonaga 26 kishi oshqozon-ichak buzilishi bilan yotqizildi. Barchasi — 12-mayda "Lastochka" kafesidagi bayram tushligining mehmonlari. Kasallik tarqalishini tergov qiling: savol bering, ma\'lumot so\'rang, manba haqida gipoteza ilgari suring. Ma\'lumotni faqat so\'raganingizda beraman».\n\nTayyor bo\'lgach gipotezani yozing: «Mening gipotezam: manba — …».');
+}
+function obAsk(q){
+  obUser(q); const s=q.toLowerCase();
+  setTimeout(()=>{
+    if(/tashxis|belgi|klinik/.test(s)){ OB.steps.diag=true; obBot(OB.data.diagnosis); }
+    else if(/egri|dinamik|sanalar/.test(s)){ OB.steps.curve=true; obBot(OB.data.curve.replace(/\n/g,'<br>')); }
+    else if(/kim|holat|ataka|tavsif|kasallangan|xodim/.test(s)){ OB.steps.cases=true; obBot(OB.data.cases); }
+    else if(/menyu|taom|nima yegan|ovqat/.test(s)){ OB.steps.menu=true; obBot(OB.data.menu); }
+    else if(/suv|ichimlik/.test(s)){ OB.steps.table=true; obBot(OB.data.water); }
+    else if(/tovuq|kuritsa/.test(s)){ OB.steps.table=true; obBot(OB.tables.chicken.replace(/\n/g,'<br>')); }
+    else if(/salat|olivye/.test(s)){ OB.steps.table=true; obBot(OB.tables.salad.replace(/\n/g,'<br>')); }
+    else if(/sho'rva|soup|chuchvara/.test(s)){ OB.steps.table=true; obBot(OB.tables.soup.replace(/\n/g,'<br>')); }
+    else if(/pirojnoyi|tort|kartoshka/.test(s)){ OB.steps.table=true; obBot(OB.tables.cake.replace(/\n/g,'<br>')); }
+    else if(/choy|qahva/.test(s)){ OB.steps.table=true; obBot(OB.tables.tea.replace(/\n/g,'<br>')); }
+    else if(/labor|tahlil|ifloslanish|bakteriolog/.test(s)){ OB.steps.lab=true; obBot(OB.data.lab.replace(/\n/g,'<br>')); }
+    else if(/choratadbir|profilakt|dezinfeks|nazorat|choralar/.test(s)){ OB.steps.control=true; obBot(OB.data.control); }
+    else if(/gipotez|manba/.test(s)) obFinish(q);
+    else obBot('So\'rovingizni aniqroq ifodalang. Masalan: «epidemik egri chiziqni bering», «tovuq bo\'yicha 2×2 jadval», «laboratoriya tahlillari» yoki «mening gipotezam: …».');
+  }, 350);
+}
+function obFinish(q){
+  const s=q.toLowerCase(); let v;
+  if(/tovuq|salmonell/.test(s)){
+    const missed=OB.checklist.filter(([k])=>!OB.steps[k]);
+    v='✅ <b>Gipoteza tasdiqlandi!</b><br><br>'+OB.solution;
+    v+= missed.length
+      ? '<br><br>📋 <b>Tergovda o\'tkazib yuborgan bosqichlaringiz:</b><ul>'+missed.map(([,t])=>`<li>${t}</li>`).join('')+'</ul>'
+      : '<br><br>🏆 Tergovning barcha asosiy bosqichlaridan o\'tdingiz. Ajoyib ish!';
+  } else {
+    const hint=(/suv/.test(s))?'Suv bo\'yicha ma\'lumot uni manba deb tasdiqlamaydi (RR = 1,41).':
+      (/salat/.test(s))?'Salat bo\'yicha RR atigi 1,17 — aloqa kuchsiz. Boshqa mahsulotlarni ko\'ring.':
+      (/pirojnoyi|tort/.test(s))?'Pirojnoyi "himoya qiladi" (RR = 0,74) — bu manba emas.':
+      'Mahsulotlar bo\'yicha 2×2 jadvallarni ko\'ring: qayerda RR maksimal?';
+    v=`🔎 «${q}» gipotezasi ma'lumotlar bilan tasdiqlanmadi. ${hint}<br><br>Yana ma'lumot so'rang yoki yangi gipoteza ilgari suring.`;
+  }
+  obBot(v);
+}
+function obSend(){ const i=document.getElementById('obInput'); const v=i.value.trim(); if(!v) return; i.value=''; obAsk(v); }
+document.getElementById('obInput').addEventListener('keydown',e=>{if(e.key==='Enter')obSend();});
+
+/* ================= AI-YORDAMCHI ================= */
+function mBot(t){ const c=document.getElementById('mChat'); const d=document.createElement('div'); d.className='msg bot'; d.innerHTML=t; c.appendChild(d); c.scrollTop=c.scrollHeight; }
+function mUser(t){ const c=document.getElementById('mChat'); const d=document.createElement('div'); d.className='msg user'; d.textContent=t; c.appendChild(d); c.scrollTop=c.scrollHeight; }
+const MENTOR=[
+ [/nisby xavf|\brr\b|nisbiy xavf/i,`RR haqida — birgalikda o'ylaymiz:<br><br>1. Kuzatuv tadqiqotida avval kim kasallangani ko'rasiz. Avval suratlarni (kasallanganlar soni) yoki har guruhdagi kasallanish ulushini solishtirasiz?<br>2. Guruhda kasallanish "xavfi" nima? Bu ulushning maxraji qanday?<br><br>O'ylab ko'ring, so'ng "guruh xavfini qanday hisoblash kerak" deb so'rang — davom ettiraman.`],
+ [/imkoniyat|\bor\b|holat-nazorat/i,`OR haqida:<br><br>1. "Holat-nazorat" tadqiqotida guruhlar natijaga ko'ra shakllangan. Unda kasallanish xavfini hisoblash mumkinmi? Nega?<br>2. Kasalda ekspozitsiyaga ega bo'lish "shansi" nima? U qaysi ikki sondan tuziladi?<br><br>Agar qiynalsangiz "2×2 jadvalni qanday tuzish kerak" deb so'rang. Lekin avval o'zingiz javob bering.`],
+ [/kasallanish|insidensiya/i,`Kasallanish ko'rsatkichi haqida:<br><br>1. Inson suratga tushishi uchun nima bo'lishi kerak — hozir kasalmi yoki kuzatuv davrida kasallanganmi?<br>2. Nega maxraj — aholining o'zi, tekshirilgan kishilar soni emas?<br>3. Ko'rsatkichni qulay o'qish uchun odatda nechaga ko'paytiriladi?<br><br>O'zingizga uch savolga javob bering — formula o'zi shakllanadi.`],
+ [/tarqalganlik|prevalensiya/i,`Tarqalganlik haqida:<br><br>1. Bu "bir lahzalik suratmi" yoki davrdagi holatlar yig'indisimi?<br>2. Suratga uzoq vaqt kasal bo'lib yurganlar kiradimi yoki faqat yangi holatlar?<br>3. Qaysi ko'rsatkich odatda yuqori — tarqalganlikmi yoki kasallanishmi (surunkali kasallikda)?<br><br>Kasallanish bilan solishtiring: surat va maxrajlar farqi nimada?`],
+ [/sezgirlik/i,`Test sezgirligi haqida:<br><br>1. Qaysilarning orasida hisoblanadi — bemorlarni sog'llarni?<br>2. Test qaysi bemorlarni "o'tkazib yuborishi" mumkin? Bu natija qanday ataladi va 2×2 jadvalning qaysi katakchasida?<br>3. Agar test juda sezgir bo'lsa va natija salbiy bo'lsa — bu shiforga nima deydi?<br><br>Formulani so'z bilan yozing, so'ng "Vazifalar"dan 5-masalani solishtiring.`],
+ [/spesifiklik/i,`Spesifiklik haqida:<br><br>1. Qaysilarning orasida hisoblanadi?<br>2. Yolg'on-ijobiy natija nima? Nega u spesifiklikni pasaytiradi?<br>3. Agar test juda spesifik bo'lsa va ijobiy natija bersa — tashxisga ishonish mumkinmi?<br><br>Sezgirlik bilan qanday bog'liq — chegarani siljitib ikkalasini bir vaqtda oson oshirish mumkinmi?`],
+ [/2×2|jadval/i,`2×2 jadval — epidemiologik hisoblar asosidir:<br><br>1. Qaysi belgi bo'yicha qatorlarga, qaysi belgi bo'yicha ustunlarga ajratamiz?<br>2. Qanday to'rtta katakcha hosil bo'ladi? Ularning qisqacha nomlari?<br>3. Barcha katakchalarda nima umumiy — nima sanaladi?<br><br>Jadvalni chekuvchilar masalasida qurib ko'ring — tushunishning eng yaxshi usuli.`],
+ [/portlash|tergov|egri chiziq/i,`Kasallik tarqalishini tergov qilish bosqichlari:<br><br>1. Avval nimani tekshiramiz — tashxis yoki profilaktik choralarni?<br>2. Epidemik egri chiziq nima uchun kerak — u portlash turini qanday ko'rsatadi?<br>3. "Ataka" nima va nega atakalarni solishtirish shunchaki kasallanganlar sonidan kuchliroq?<br>4. Gipoteza qachon isbotlangan hisoblanadi?<br><br>So'ng "Kasallik tarqalishi" bo'limini sinab ko'ring — u yerda bu amalda.`],
+ [/salom|assalom|xayrli|hello/i,`Assalomu alaykum! Men epidemiologiya bo'yicha yordamchiman. Nimadan boshlaymiz? Tushuntira olaman: kasallanish, tarqalganlik, RR, OR, sezgirlik va spesifiklik, 2×2 jadval, kasallik tarqalishini tergov qilish.`],
+];
+function mAnswer(q){ for(const [re,ans] of MENTOR){ if(re.test(q)) return ans; } return `Qiziq savol. Savollar orqali ko'ramiz:<br><br>1. Nimada shubha bor — ta'rifda, formulada yoki talqinda?<br>2. Bu "Vazifalar" bo'limidagi qaysi masala bilan bog'liq?<br><br>Mavzuni ko'rsatib qayta yozing (masalan: «nisby xavf», «test sezgirligi»).`; }
+function mSend(){ const i=document.getElementById('mInput'); const v=i.value.trim(); if(!v) return; i.value=''; mUser(v); setTimeout(()=>mBot(mAnswer(v)), 350); }
+document.getElementById('mInput').addEventListener('keydown',e=>{if(e.key==='Enter')mSend();});
+
+/* init */
+renderNameInfo();
+document.getElementById('obIntro').innerHTML=`<p class="muted" style="margin-bottom:12px;">Ssenariy interaktiv: bot faqat so'ralgan ma'lumotni beradi. Juftlikda o'tish tavsiya etiladi.</p><button class="btn" onclick="obStart()">Tergovni boshlash</button>`;
+mBot(`Assalomu alaykum! Men AI-yordamchiman. Oddiy chatdan farqli o'laroq, tayyor javob bermayman — siz tushunishingiz uchun yo'naltiruvchi savollar beraman. Nimadan boshlaymiz?`);
+document.getElementById('mQuick').innerHTML=['RR nima?','OR qanday hisoblanadi?','Tarqalganlik vs kasallanish','Sezgirlik vs spesifiklik','Kasallik tarqalishini qanday tergov qiladi?']
+  .map(s=>`<button class="btn ghost" onclick="document.getElementById('mInput').value='${s}';mSend();">${s}</button>`).join('');
+</script>
+</body>
+</html>
